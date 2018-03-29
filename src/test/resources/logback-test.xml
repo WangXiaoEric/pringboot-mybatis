@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property resource="application.properties"/>
+    <property resource="application-integration.properties"/>
+
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %n
+            </Pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+        <!--<filter class="ch.qos.logback.classic.filter.LevelFilter">&lt;!&ndash; 不打印错误日志 &ndash;&gt;-->
+            <!--<level>ERROR</level>-->
+            <!--<onMatch>DENY</onMatch>-->
+            <!--<onMismatch>ACCEPT</onMismatch>-->
+        <!--</filter>-->
+    </appender>
+
+    <appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${application.logPath:-.}\${application.service.name}.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n</Pattern>
+        </encoder>
+        <!--<filter class="ch.qos.logback.core.filter.EvaluatorFilter">-->
+            <!--<evaluator> &lt;!&ndash; 默认为 ch.qos.logback.classic.boolex.JaninoEventEvaluator &ndash;&gt;-->
+                <!--<expression>return message.contains("[detail]");</expression>-->
+            <!--</evaluator>-->
+            <!--<OnMatch>DENY</OnMatch>-->
+        <!--</filter>-->
+        <!--<filter class="ch.qos.logback.core.filter.EvaluatorFilter">-->
+            <!--<evaluator> &lt;!&ndash; 默认为 ch.qos.logback.classic.boolex.JaninoEventEvaluator &ndash;&gt;-->
+                <!--<expression>return message.contains("[workflow]");</expression>-->
+            <!--</evaluator>-->
+            <!--<OnMatch>DENY</OnMatch>-->
+        <!--</filter>-->
+        <!--<filter class="ch.qos.logback.core.filter.EvaluatorFilter">-->
+            <!--<evaluator> &lt;!&ndash; 默认为 ch.qos.logback.classic.boolex.JaninoEventEvaluator &ndash;&gt;-->
+                <!--<expression>return message.contains("[monitor]");</expression>-->
+            <!--</evaluator>-->
+            <!--<OnMatch>DENY</OnMatch>-->
+        <!--</filter>-->
+        <!--<filter class="ch.qos.logback.core.filter.EvaluatorFilter">-->
+            <!--<evaluator> &lt;!&ndash; 默认为 ch.qos.logback.classic.boolex.JaninoEventEvaluator &ndash;&gt;-->
+                <!--<expression>return message.contains("[performance]");</expression>-->
+            <!--</evaluator>-->
+            <!--<OnMatch>DENY</OnMatch>-->
+        <!--</filter>-->
+        <!--<filter class="ch.qos.logback.core.filter.EvaluatorFilter">-->
+            <!--<evaluator> &lt;!&ndash; 默认为 ch.qos.logback.classic.boolex.JaninoEventEvaluator &ndash;&gt;-->
+                <!--<expression>return message.contains("[queryScheduler]");</expression>-->
+            <!--</evaluator>-->
+            <!--<OnMatch>DENY</OnMatch>-->
+        <!--</filter>-->
+    </appender>
+
+	<!--<logger name="com.shmgc.purchase.platform_server" level="INFO">-->
+        <!--<appender-ref ref="consoleAppender"/>-->
+    <!--</logger>-->
+
+    <root>
+        <level value="INFO"/>
+        <appender-ref ref="dailyRollingFileAppender"/>
+        <appender-ref ref="consoleAppender"/>
+    </root>
+</configuration>

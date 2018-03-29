@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property resource="application.properties"/>
+    <!--<property resource="application-${PP_ENV}.properties"/>-->
+
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %n
+            </Pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+    </appender>
+
+    <appender name="dailyServiceFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${application.logPath:-.}\${application.service.name}.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="detailFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${application.logPath:-.}\${application.service.name}-detail.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level - %msg %n</Pattern>
+        </encoder>
+    </appender>
+    <appender name="errorFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${application.logPath:-.}\${application.service.name}-error.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level - %msg %n</Pattern>
+        </encoder>
+    </appender>
+    <appender name="performanceFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${application.logPath:-.}\${application.service.name}-performance.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level - %msg %n</Pattern>
+        </encoder>
+    </appender>
+
+
+
+
+
+    <root>
+        <level value="INFO"/>
+        <appender-ref ref="dailyServiceFileAppender"/>
+        <appender-ref ref="consoleAppender"/>
+    </root>
+
+    <!--<logger name="com.shmgc.purchase.platform_server" level="INFO">-->
+        <!--<appender-ref ref="consoleAppender"/>-->
+    <!--</logger>-->
+
+    <logger name="log.DetailAppender" level="DEBUG">
+        <appender-ref ref="detailFileAppender"/>
+    </logger>
+    <logger name="log.ErrorAppender" level="DEBUG">
+        <appender-ref ref="errorFileAppender"/>
+    </logger>
+    <logger name="log.PerformanceAppender" level="DEBUG">
+        <appender-ref ref="performanceFileAppender"/>
+    </logger>
+
+
+</configuration>

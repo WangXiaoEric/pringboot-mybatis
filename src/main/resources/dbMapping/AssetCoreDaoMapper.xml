@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="c.h.tai.dao.biz.asset">
+
+    <!--Asset Core-->
+    <resultMap id="assetCoreResultMap" type="com.htschk.tai.model.entity.asset.AssetCoreEntity">
+        <id column="asset_id" jdbcType="VARCHAR" property="assetId"/>
+        <result column="parent_asset_id" jdbcType="VARCHAR" property="parentAssetId"/>
+        <result column="asset_cls" jdbcType="VARCHAR" property="assetClsCode"/>
+        <result column="asset_sub_cls" jdbcType="VARCHAR" property="assetSubCls"/>
+        <result column="source_type" jdbcType="VARCHAR" property="sourceType"/>
+        <result column="platform_type" jdbcType="VARCHAR" property="platformType"/>
+        <result column="vendor_name" jdbcType="VARCHAR" property="vendorName"/>
+        <result column="vendor_contact_info" jdbcType="VARCHAR" property="vendorContactInfo"/>
+        <result column="asset_name" jdbcType="VARCHAR" property="assetName"/>
+        <result column="asset_unique_name" jdbcType="VARCHAR" property="assetUniqueName"/>
+        <result column="home_page" jdbcType="VARCHAR" property="homePage"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="lifecycle_phase" jdbcType="VARCHAR" property="lifecyclePhase"/>
+        <result column="procurement_date" jdbcType="VARCHAR" property="procurementDate"/>
+        <result column="production_date" jdbcType="VARCHAR" property="productionDate"/>
+        <result column="planned_cost" jdbcType="DOUBLE" property="plannedCost"/>
+        <result column="actual_cost" jdbcType="DOUBLE" property="actualCost"/>
+        <result column="quantity" jdbcType="DOUBLE" property="quantity"/>
+        <result column="price_per_unit" jdbcType="DOUBLE" property="pricePerUnit"/>
+        <result column="currency" jdbcType="VARCHAR" property="currency"/>
+        <result column="useful_life" jdbcType="VARCHAR" property="usefulLife"/>
+        <result column="useful_life_start_date" jdbcType="VARCHAR" property="usefulLifeStartDate"/>
+        <result column="useful_life_end_date" jdbcType="VARCHAR" property="usefulLifeEndDate"/>
+        <result column="tech_own_org" jdbcType="VARCHAR" property="techOwnOrg"/>
+        <result column="tech_mgmt_location" jdbcType="VARCHAR" property="techMgmtLocation"/>
+        <result column="prim_tech_owner" jdbcType="VARCHAR" property="primTechOwner"/>
+        <result column="dev_mail_group" jdbcType="VARCHAR" property="devMailGroup"/>
+        <result column="biz_own_org" jdbcType="VARCHAR" property="bizOwnOrg"/>
+        <result column="biz_mgmt_location" jdbcType="VARCHAR" property="bizMgmtLocation"/>
+        <result column="prim_biz_owner" jdbcType="VARCHAR" property="primBizOwner"/>
+        <result column="prim_support" jdbcType="VARCHAR" property="primSupport"/>
+        <result column="prim_support_ext" jdbcType="VARCHAR" property="primSupportExt"/>
+        <result column="sec_support" jdbcType="VARCHAR" property="secSupport"/>
+        <result column="sec_support_ext" jdbcType="VARCHAR" property="secSupportExt"/>
+        <result column="qa_support" jdbcType="VARCHAR" property="qaSupport"/>
+        <result column="qa_support_ext" jdbcType="VARCHAR" property="qaSupportExt"/>
+        <result column="biz_process_prim" jdbcType="VARCHAR" property="bizProcessPrim"/>
+        <result column="biz_process_prim_ratio" jdbcType="DOUBLE" property="bizProcessPrimRatio"/>
+        <result column="biz_process_sec_text" jdbcType="VARCHAR" property="bizProcessSecText"/>
+        <result column="info_sensitivity_cls" jdbcType="CHAR" property="infoSensitivityCls"/>
+        <result column="critical_infra_asset" jdbcType="CHAR" property="criticalInfraAsset"/>
+        <result column="risk_ranking" jdbcType="CHAR" property="riskRanking"/>
+        <result column="is_enable" jdbcType="INTEGER" property="isEnable"/>
+        <result column="create_user" jdbcType="VARCHAR" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_user" jdbcType="VARCHAR" property="updateUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <select id="selectAssetCoreDetailById" parameterType="java.lang.String" resultMap="assetCoreResultMap">
+        select
+        asset_id, parent_asset_id, asset_cls, asset_sub_cls, source_type, platform_type,
+        vendor_name, vendor_contact_info, asset_name, asset_unique_name, home_page, description,
+        lifecycle_phase, procurement_date, production_date, planned_cost, actual_cost, quantity, price_per_unit,
+        currency, useful_life, useful_life_start_date, useful_life_end_date, tech_own_org,
+        tech_mgmt_location, prim_tech_owner, dev_mail_group, biz_own_org, biz_mgmt_location,
+        prim_biz_owner, prim_support, prim_support_ext, sec_support, sec_support_ext, qa_support,
+        qa_support_ext, biz_process_prim, biz_process_prim_ratio, biz_process_sec_text, info_sensitivity_cls,
+        critical_infra_asset, risk_ranking, is_enable, create_user, create_time, update_user,
+        update_time
+        from t_biz_asset_core
+        where asset_id = #{assetId,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insertNewAssetCore" parameterType="com.htschk.tai.model.entity.asset.AssetCoreEntity">
+    insert into t_biz_asset_core (asset_id, parent_asset_id, asset_cls,
+      asset_sub_cls, source_type, platform_type,
+      vendor_name, vendor_contact_info, asset_name,
+      asset_unique_name, home_page, description,
+      lifecycle_phase, procurement_date, production_date,
+      planned_cost, actual_cost, quantity, price_per_unit,
+      currency, useful_life, useful_life_start_date,
+      useful_life_end_date, tech_own_org, tech_mgmt_location,
+      prim_tech_owner, dev_mail_group, biz_own_org,
+      biz_mgmt_location, prim_biz_owner, prim_support,
+      prim_support_ext, sec_support, sec_support_ext,
+      qa_support, qa_support_ext, biz_process_prim,
+      biz_process_prim_ratio, biz_process_sec_text,
+      info_sensitivity_cls, critical_infra_asset, risk_ranking,
+      is_enable, create_user, create_time,
+      update_user, update_time)
+    values (#{assetId,jdbcType=VARCHAR}, #{parentAssetId,jdbcType=VARCHAR}, #{assetCls.code,jdbcType=VARCHAR},
+      #{assetSubCls,jdbcType=VARCHAR}, #{sourceType,jdbcType=VARCHAR}, #{platformType,jdbcType=VARCHAR},
+      #{vendorName,jdbcType=VARCHAR}, #{vendorContactInfo,jdbcType=VARCHAR}, #{assetName,jdbcType=VARCHAR},
+      #{assetUniqueName,jdbcType=VARCHAR}, #{homePage,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+      #{lifecyclePhase,jdbcType=VARCHAR}, #{procurementDate,jdbcType=VARCHAR}, #{productionDate,jdbcType=VARCHAR},
+      #{plannedCost,jdbcType=DOUBLE}, #{actualCost,jdbcType=DOUBLE}, #{quantity,jdbcType=DOUBLE}, #{pricePerUnit,jdbcType=DOUBLE},
+      #{currency,jdbcType=VARCHAR}, #{usefulLife,jdbcType=VARCHAR}, #{usefulLifeStartDate,jdbcType=VARCHAR},
+      #{usefulLifeEndDate,jdbcType=VARCHAR}, #{techOwnOrg,jdbcType=VARCHAR}, #{techMgmtLocation,jdbcType=VARCHAR},
+      #{primTechOwner,jdbcType=VARCHAR}, #{devMailGroup,jdbcType=VARCHAR}, #{bizOwnOrg,jdbcType=VARCHAR},
+      #{bizMgmtLocation,jdbcType=VARCHAR}, #{primBizOwner,jdbcType=VARCHAR}, #{primSupport,jdbcType=VARCHAR},
+      #{primSupportExt,jdbcType=VARCHAR}, #{secSupport,jdbcType=VARCHAR}, #{secSupportExt,jdbcType=VARCHAR},
+      #{qaSupport,jdbcType=VARCHAR}, #{qaSupportExt,jdbcType=VARCHAR}, #{bizProcessPrim,jdbcType=VARCHAR},
+      #{bizProcessPrimRatio,jdbcType=DOUBLE}, #{bizProcessSecText,jdbcType=VARCHAR},
+      #{infoSensitivityCls,jdbcType=CHAR}, #{criticalInfraAsset,jdbcType=CHAR}, #{riskRanking,jdbcType=CHAR},
+      #{isEnable,jdbcType=INTEGER}, #{createUser,jdbcType=VARCHAR}, sysdate(),
+      #{updateUser,jdbcType=VARCHAR}, sysdate())
+    </insert>
+
+
+    <update id="updateAssetCore" parameterType="com.htschk.tai.model.entity.asset.AssetCoreEntity">
+    update t_biz_asset_core
+    set parent_asset_id = #{parentAssetId,jdbcType=VARCHAR},
+      asset_sub_cls = #{assetSubCls,jdbcType=VARCHAR},
+      source_type = #{sourceType,jdbcType=VARCHAR},
+      platform_type = #{platformType,jdbcType=VARCHAR},
+      vendor_name = #{vendorName,jdbcType=VARCHAR},
+      vendor_contact_info = #{vendorContactInfo,jdbcType=VARCHAR},
+      asset_name = #{assetName,jdbcType=VARCHAR},
+      asset_unique_name = #{assetUniqueName,jdbcType=VARCHAR},
+      home_page = #{homePage,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      lifecycle_phase = #{lifecyclePhase,jdbcType=VARCHAR},
+      procurement_date = #{procurementDate,jdbcType=VARCHAR},
+      production_date = #{productionDate,jdbcType=VARCHAR},
+      planned_cost = #{plannedCost,jdbcType=DOUBLE},
+      actual_cost = #{actualCost,jdbcType=DOUBLE},
+      quantity = #{quantity,jdbcType=DOUBLE},
+      price_per_unit = #{pricePerUnit,jdbcType=DOUBLE},
+      currency = #{currency,jdbcType=VARCHAR},
+      useful_life = #{usefulLife,jdbcType=VARCHAR},
+      useful_life_start_date = #{usefulLifeStartDate,jdbcType=VARCHAR},
+      useful_life_end_date = #{usefulLifeEndDate,jdbcType=VARCHAR},
+      tech_own_org = #{techOwnOrg,jdbcType=VARCHAR},
+      tech_mgmt_location = #{techMgmtLocation,jdbcType=VARCHAR},
+      prim_tech_owner = #{primTechOwner,jdbcType=VARCHAR},
+      dev_mail_group = #{devMailGroup,jdbcType=VARCHAR},
+      biz_own_org = #{bizOwnOrg,jdbcType=VARCHAR},
+      biz_mgmt_location = #{bizMgmtLocation,jdbcType=VARCHAR},
+      prim_biz_owner = #{primBizOwner,jdbcType=VARCHAR},
+      prim_support = #{primSupport,jdbcType=VARCHAR},
+      prim_support_ext = #{primSupportExt,jdbcType=VARCHAR},
+      sec_support = #{secSupport,jdbcType=VARCHAR},
+      sec_support_ext = #{secSupportExt,jdbcType=VARCHAR},
+      qa_support = #{qaSupport,jdbcType=VARCHAR},
+      qa_support_ext = #{qaSupportExt,jdbcType=VARCHAR},
+      biz_process_prim = #{bizProcessPrim,jdbcType=VARCHAR},
+      biz_process_prim_ratio = #{bizProcessPrimRatio,jdbcType=DOUBLE},
+      biz_process_sec_text = #{bizProcessSecText,jdbcType=VARCHAR},
+      info_sensitivity_cls = #{infoSensitivityCls,jdbcType=CHAR},
+      critical_infra_asset = #{criticalInfraAsset,jdbcType=CHAR},
+      risk_ranking = #{riskRanking,jdbcType=CHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = sysdate(),
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = sysdate()
+    where asset_id = #{assetId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateAssetCoreAsDeleted" parameterType="com.htschk.tai.model.entity.asset.AssetCoreEntity">
+        update t_biz_asset_core
+        set
+        is_enable = 0,
+        update_user = #{updateUser,jdbcType=VARCHAR},
+        update_time = sysdate()
+        where asset_id = #{assetId,jdbcType=VARCHAR}
+    </update>
+
+    <!--Asset Software-->
+    <resultMap id="assetSoftwareResultMap" type="com.htschk.tai.model.entity.asset.AssetSoftwareEntity">
+        <id column="asset_id" jdbcType="VARCHAR" property="assetId" />
+        <result column="resource_location" jdbcType="VARCHAR" property="resourceLocation" />
+        <result column="sdlc_phase" jdbcType="VARCHAR" property="sdlcPhase" />
+        <result column="internal_user_limit" jdbcType="INTEGER" property="internalUserLimit" />
+        <result column="provide_data_to_ext" jdbcType="CHAR" property="provideDataToExt" />
+        <result column="use_market_data" jdbcType="CHAR" property="useMarketData" />
+        <result column="tech_recovery_time" jdbcType="VARCHAR" property="techRecoveryTime" />
+        <result column="application_rto" jdbcType="VARCHAR" property="applicationRto" />
+        <result column="dr_mode" jdbcType="VARCHAR" property="drMode" />
+        <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+    <select id="selectAssetSoftwareDetailById" parameterType="java.lang.String" resultMap="assetSoftwareResultMap">
+        select
+        asset_id, resource_location, sdlc_phase, internal_user_limit, provide_data_to_ext,
+        use_market_data, tech_recovery_time, application_rto, dr_mode, create_user, create_time,
+        update_user, update_time
+        from t_biz_asset_software
+        where asset_id = #{assetId,jdbcType=VARCHAR}
+    </select>
+    <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.String">-->
+        <!--delete from t_biz_asset_software-->
+        <!--where asset_id = #{assetId,jdbcType=VARCHAR}-->
+    <!--</delete>-->
+    <insert id="insertNewAssetSoftware" parameterType="com.htschk.tai.model.entity.asset.AssetSoftwareEntity">
+        insert into t_biz_asset_software (asset_id, resource_location, sdlc_phase,
+        internal_user_limit, provide_data_to_ext, use_market_data,
+        tech_recovery_time, application_rto, dr_mode,
+        create_user, create_time, update_user,
+        update_time)
+        values (#{assetId,jdbcType=VARCHAR}, #{resourceLocation,jdbcType=VARCHAR}, #{sdlcPhase,jdbcType=VARCHAR},
+        #{internalUserLimit,jdbcType=INTEGER}, #{provideDataToExt,jdbcType=CHAR}, #{useMarketData,jdbcType=CHAR},
+        #{techRecoveryTime,jdbcType=VARCHAR}, #{applicationRto,jdbcType=VARCHAR}, #{drMode,jdbcType=VARCHAR},
+        #{createUser,jdbcType=VARCHAR}, sysdate(), #{updateUser,jdbcType=VARCHAR},
+        sysdate())
+    </insert>
+
+    <update id="updateAssetSoftware" parameterType="com.htschk.tai.model.entity.asset.AssetSoftwareEntity">
+        update t_biz_asset_software
+        set resource_location = #{resourceLocation,jdbcType=VARCHAR},
+        sdlc_phase = #{sdlcPhase,jdbcType=VARCHAR},
+        internal_user_limit = #{internalUserLimit,jdbcType=INTEGER},
+        provide_data_to_ext = #{provideDataToExt,jdbcType=CHAR},
+        use_market_data = #{useMarketData,jdbcType=CHAR},
+        tech_recovery_time = #{techRecoveryTime,jdbcType=VARCHAR},
+        application_rto = #{applicationRto,jdbcType=VARCHAR},
+        dr_mode = #{drMode,jdbcType=VARCHAR},
+        update_user = #{updateUser,jdbcType=VARCHAR},
+        update_time = sysdate()
+        where asset_id = #{assetId,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

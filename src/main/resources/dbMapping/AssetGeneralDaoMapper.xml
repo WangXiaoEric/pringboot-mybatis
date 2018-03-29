@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="c.h.tai.dao.biz.asset">
+
+    <!--Asset OrgMapping-->
+    <resultMap id="assetOrgMappingResultMap" type="com.htschk.tai.model.entity.asset.AssetOrgMappingEntity">
+        <id column="asset_id" jdbcType="VARCHAR" property="assetId" />
+        <id column="bu_id" jdbcType="VARCHAR" property="buId" />
+        <result column="biz_own_type" jdbcType="INTEGER" property="bizOwnTypeCode" />
+        <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+
+    <select id="selectAssetOrgMappingByCriteria" parameterType="com.htschk.tai.model.entity.asset.AssetOrgMappingEntity"
+            resultMap="assetOrgMappingResultMap">
+        select
+        asset_id, bu_id, biz_own_type, create_user, create_time, update_user, update_time
+        from t_biz_asset_org_mapping
+        where 1=1
+        <if test="assetId != null">
+            and asset_id = #{assetId,jdbcType=VARCHAR}
+        </if>
+        <if test="buId != null">
+            and bu_id = #{buId,jdbcType=VARCHAR}
+        </if>
+        <if test="bizOwnType != null">
+            and biz_own_type = #{bizOwnType.code,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <delete id="deleteOrgMappingByCriteria" parameterType="com.htschk.tai.model.entity.asset.AssetOrgMappingEntity">
+        delete from t_biz_asset_org_mapping
+        where 1=1
+        <if test="assetId != null">
+            and asset_id = #{assetId,jdbcType=VARCHAR}
+        </if>
+        <if test="buId != null">
+            and bu_id = #{buId,jdbcType=VARCHAR}
+        </if>
+        <if test="bizOwnType != null">
+            and biz_own_type = #{bizOwnType.code,jdbcType=INTEGER}
+        </if>
+    </delete>
+    <insert id="insertNewAssetOrgMapping" parameterType="com.htschk.tai.model.entity.asset.AssetOrgMappingEntity">
+        insert into t_biz_asset_org_mapping (asset_id, bu_id, biz_own_type,
+        create_user, create_time, update_user,
+        update_time)
+        values (#{assetId,jdbcType=VARCHAR}, #{buId,jdbcType=VARCHAR}, #{bizOwnType.code,jdbcType=INTEGER},
+        #{createUser,jdbcType=VARCHAR}, sysdate(), #{createUser,jdbcType=VARCHAR},
+        sysdate())
+    </insert>
+
+    <!--Asset User Mapping-->
+    <resultMap id="assetUserMappingResultMap" type="com.htschk.tai.model.entity.asset.AssetUserMappingEntity">
+        <id column="asset_id" jdbcType="VARCHAR" property="assetId" />
+        <id column="user_id" jdbcType="VARCHAR" property="userId" />
+        <id column="type" jdbcType="INTEGER" property="typeCode" />
+        <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    </resultMap>
+
+    <select id="selectAssetUserMappingListByCriteria" parameterType="com.htschk.tai.model.entity.asset.AssetUserMappingEntity"
+            resultMap="assetUserMappingResultMap">
+        select
+        asset_id, user_id, type, create_user, create_time
+        from t_biz_asset_user_mapping
+        where 1=1
+        <if test="assetId != null">
+            and asset_id = #{assetId,jdbcType=VARCHAR}
+        </if>
+        <if test="userId != null">
+            and user_id = #{userId,jdbcType=VARCHAR}
+        </if>
+        <if test="type != null">
+            and type = #{type.code,jdbcType=INTEGER}
+        </if>
+    </select>
+    <delete id="deleteAssetUserMappingByCriteria" parameterType="com.htschk.tai.model.entity.asset.AssetUserMappingEntity">
+        delete from t_biz_asset_user_mapping
+        where 1=1
+        <if test="assetId != null">
+            and asset_id = #{assetId,jdbcType=VARCHAR}
+        </if>
+        <if test="userId != null">
+            and user_id = #{userId,jdbcType=VARCHAR}
+        </if>
+        <if test="type != null">
+            and type = #{type.code,jdbcType=INTEGER}
+        </if>
+    </delete>
+    <insert id="insertNewAssetUserMapping" parameterType="com.htschk.tai.model.entity.asset.AssetUserMappingEntity">
+        insert into t_biz_asset_user_mapping (asset_id, user_id, type,
+        create_user, create_time)
+        values (#{assetId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{type.code,jdbcType=INTEGER},
+        #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <!--software hardware asset mapping-->
+    <resultMap id="sfHdAssetMappingResultMap" type="com.htschk.tai.model.entity.asset.AssetHostedMappingEntity">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="sf_asset_id" jdbcType="VARCHAR" property="sfAssetId" />
+        <result column="hd_asset_id" jdbcType="VARCHAR" property="hdAssetId" />
+        <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+
+    <select id="selectSfHdAssetListByCriteria" parameterType="com.htschk.tai.model.entity.asset.AssetHostedMappingEntity"
+            resultMap="sfHdAssetMappingResultMap">
+        select
+          id, sf_asset_id, hd_asset_id, create_user, create_time, update_user, update_time
+        from t_biz_sf_hd_asset_mapping
+        where 1=1
+        <if test="sfAssetId != null">
+            and sf_asset_id = #{sfAssetId,jdbcType=VARCHAR}
+        </if>
+        <if test="hdAssetId != null">
+            and hd_asset_id = #{hdAssetId,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <delete id="deleteSfHdAssetByCriteria" parameterType="com.htschk.tai.model.entity.asset.AssetHostedMappingEntity">
+        delete from t_biz_sf_hd_asset_mapping
+        where 1=1
+        <if test="id != null">
+            and id = #{id,jdbcType=VARCHAR}
+        </if>
+        <if test="sfAssetId != null">
+            and sf_asset_id = #{sfAssetId,jdbcType=VARCHAR}
+        </if>
+        <if test="hdAssetId != null">
+            and hd_asset_id = #{hdAssetId,jdbcType=VARCHAR}
+        </if>
+    </delete>
+    <insert id="insertSfHdAssetMapping" parameterType="com.htschk.tai.model.entity.asset.AssetHostedMappingEntity">
+        insert into t_biz_sf_hd_asset_mapping (id, sf_asset_id, hd_asset_id,
+        create_user, create_time, update_user,
+        update_time)
+        values (#{id,jdbcType=INTEGER}, #{sfAssetId,jdbcType=VARCHAR}, #{hdAssetId,jdbcType=VARCHAR},
+        #{createUser,jdbcType=VARCHAR}, sysdate(), #{updateUser,jdbcType=VARCHAR},
+        sysdate())
+    </insert>
+</mapper>
